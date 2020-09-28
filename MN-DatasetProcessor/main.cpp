@@ -1,5 +1,4 @@
 
-
 #include <iostream>
 #include <iostream>
 #include <filesystem>
@@ -57,23 +56,23 @@ int main()
 
 	// IMFD LOOP
 
-	int imfdFileCount = std::distance(fs::directory_iterator(uploaded_folder_path + "/IMFD/"), fs::directory_iterator());
+	int imfdFileCount = distance(fs::directory_iterator(uploaded_folder_path + "/IMFD/"), fs::directory_iterator());
 	int imfdLoopCount = 1;
 	int imfdSeparationPoint = imfdFileCount / 2;
 
 	for (const auto & entry : fs::directory_iterator(uploaded_folder_path + "/IMFD/")) {
 
-		std::cout << "Converting " << entry.path().filename() << " file" << std::endl;
+		cout << "Converting " << entry.path().filename() << " file" << endl;
 
-		std::string inputImagePath = cv::samples::findFile(entry.path().string());
-		cv::Mat inputImage = imread(inputImagePath, cv::IMREAD_COLOR);
+		string inputImagePath = samples::findFile(entry.path().string());
+		Mat inputImage = imread(inputImagePath, IMREAD_COLOR);
 
-		cv::Mat outputImage;
+		Mat outputImage;
 
-		cv::resize(inputImage, outputImage, cv::Size(), 0.1, 0.1, cv::INTER_LINEAR);
-		cv::cvtColor(outputImage, outputImage, cv::COLOR_RGB2GRAY);
+		resize(inputImage, outputImage, Size(), 0.1, 0.1, INTER_LINEAR);
+		cvtColor(outputImage, outputImage, COLOR_RGB2GRAY);
 
-		std::string outputImagePath;
+		string outputImagePath;
 
 		if (imfdLoopCount > imfdSeparationPoint) {
 			outputImagePath = processed_folder_path + "/IMFD/training/" + entry.path().filename().string();
